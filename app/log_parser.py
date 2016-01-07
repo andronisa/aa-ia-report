@@ -8,10 +8,12 @@ class LogParser:
         pass
 
     @staticmethod
-    def read_log():
-        for file_name in glob.glob(os.path.join(GAME_LOG_PATH, "*.txt")):
-            print(file_name)
-            # for file in
+    def get_game_logs():
+        return glob.glob(os.path.join(GAME_LOG_PATH, "*.txt"))
+
+    def parse_logs(self):
+        for game_log in self.get_game_logs():
+            print(game_log)
 
 
 class GameLog:
@@ -21,4 +23,4 @@ class GameLog:
 
 if __name__ == '__main__':
     log_parser = LogParser()
-    log_parser.read_log()
+    log_parser.parse_logs()
