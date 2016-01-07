@@ -1,2 +1,2 @@
-# foai
-Foundations of AI - Personal Assignment
+# intelligent_agents_report
+Intelligent Agents - Group Coursework - Personal Report
