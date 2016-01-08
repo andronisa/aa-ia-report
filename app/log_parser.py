@@ -3,7 +3,7 @@ from __future__ import division
 import os
 import glob
 import re
-from config import GAME_LOG_PATH, PLOT_PATH
+from config import GAME_LOG_PATH
 
 
 class LogParser:
@@ -14,8 +14,6 @@ class LogParser:
         self.games = {}
         self.agents = {}
         self.line = ''
-
-    # GAME_LOG_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'game_logs'))
 
     @staticmethod
     def numerical_sort(afilename):

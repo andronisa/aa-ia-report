@@ -16,7 +16,7 @@ class Plotter:
     def __init__(self):
         pass
 
-    def bar_plot_qualities(self, game_set):
+    def bar_plot_qualities(self, game_set, title='Quality'):
         total_agent_qualities = {}
         agent_labels = []
         agent_qualities = []
@@ -32,7 +32,7 @@ class Plotter:
             agent_labels.append(agentname)
             agent_qualities.append(sum(qualities) / len(qualities))
 
-        colors = cm.Set1(np.arange(len(total_agent_qualities)) / len(total_agent_qualities))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
 
         labels = tuple(agent_labels)
         qualities = tuple(agent_qualities)
@@ -48,10 +48,10 @@ class Plotter:
                                   'linewidth': 1})  # error-bar width
 
         axes = plt.gca()
-        axes.set_ylim([0, 1.5])  # y-axis bounds
+        axes.set_ylim([0, 1.7])  # y-axis bounds
 
         ax.set_ylabel('Quality rating')
-        ax.set_title('Agents Quality')
+        ax.set_title(title)
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
@@ -59,20 +59,9 @@ class Plotter:
 
         ax.legend(rect_tuple, labels)
 
-        def autolabel(rects):
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                        '%g' % height,
-                        ha='center',  # vertical alignment
-                        va='bottom'  # horizontal alignment
-                        )
-
-        autolabel(rects1)
-
         plt.show()
 
-    def bar_plot_days_stayed(self, game_set):
+    def bar_plot_days_stayed(self, game_set, title='Average days until dropped off'):
         total_agent_qualities = {}
         agent_labels = []
         agent_qualities = []
@@ -88,7 +77,7 @@ class Plotter:
             agent_labels.append(agentname)
             agent_qualities.append(sum(qualities) / len(qualities))
 
-        colors = cm.Set1(np.arange(len(total_agent_qualities)) / len(total_agent_qualities))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
 
         labels = tuple(agent_labels)
         qualities = tuple(agent_qualities)
@@ -107,24 +96,13 @@ class Plotter:
         axes.set_ylim([0, 65])  # y-axis bounds
 
         ax.set_ylabel('Days')
-        ax.set_title('Average days until dropped off')
+        ax.set_title(title)
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
 
         ax.legend(rect_tuple, labels)
-
-        def autolabel(rects):
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                        '%g' % height,
-                        ha='center',  # vertical alignment
-                        va='bottom'  # horizontal alignment
-                        )
-
-        autolabel(rects1)
 
         plt.show()
 
@@ -144,7 +122,7 @@ class Plotter:
             agent_labels.append(agentname)
             agent_ucs_lvls.append(sum(qualities) / len(qualities))
 
-        colors = cm.Set1(np.arange(len(total_agent_ucs_lvls)) / len(total_agent_ucs_lvls))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
 
         labels = tuple(agent_labels)
         qualities = tuple(agent_ucs_lvls)
@@ -163,7 +141,7 @@ class Plotter:
         axes.set_ylim([0, 65])  # y-axis bounds
 
         ax.set_ylabel('Days')
-        ax.set_title('Average days until dropped off')
+        ax.set_title('Average days in the game')
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
@@ -171,20 +149,9 @@ class Plotter:
 
         ax.legend(rect_tuple, labels)
 
-        def autolabel(rects):
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                        '%g' % height,
-                        ha='center',  # vertical alignment
-                        va='bottom'  # horizontal alignment
-                        )
-
-        autolabel(rects1)
-
         plt.show()
 
-    def bar_plot_avg_campaigns(self, game_set):
+    def bar_plot_total_won_per_set(self, game_set, title='Campaigns Won'):
         total_agent_campaigns = {}
         agent_labels = []
         agent_campaigns = []
@@ -199,10 +166,8 @@ class Plotter:
         for agentname, campaigns in total_agent_campaigns.iteritems():
             agent_labels.append(agentname)
             agent_campaigns.append(sum(campaigns))
-            print(agentname)
-            print(campaigns)
 
-        colors = cm.Set1(np.arange(len(total_agent_campaigns)) / len(total_agent_campaigns))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
 
         labels = tuple(agent_labels)
         campaigns = tuple(agent_campaigns)
@@ -220,25 +185,14 @@ class Plotter:
         # axes = plt.gca()
         # axes.set_ylim([0, 65])  # y-axis bounds
 
-        ax.set_ylabel('Campaigns')
-        ax.set_title('Average Campaigns')
+        ax.set_ylabel('Campaigns Won')
+        ax.set_title(title)
         ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
 
         ax.legend(rect_tuple, labels)
-
-        def autolabel(rects):
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                        '%g' % height,
-                        ha='center',  # vertical alignment
-                        va='bottom'  # horizontal alignment
-                        )
-
-        autolabel(rects1)
 
         plt.show()
 
@@ -258,7 +212,7 @@ class Plotter:
             agent_labels.append(agentname)
             agent_qualities.append(sum(qualities) / len(qualities))
 
-        colors = cm.Set1(np.arange(len(total_agent_qualities)) / len(total_agent_qualities))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
 
         labels = tuple(agent_labels)
         qualities = tuple(agent_qualities)
@@ -284,22 +238,10 @@ class Plotter:
         rect_tuple = tuple(rects1)
 
         ax.legend(rect_tuple, labels)
-
-        def autolabel(rects):
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
-                        '%g' % height,
-                        ha='center',  # vertical alignment
-                        va='bottom'  # horizontal alignment
-                        )
-
-        autolabel(rects1)
-
         plt.show()
 
     def plot_quality_lines(self, game_set):
-        colors = plt.get_cmap('jet')(np.linspace(0.3, 1.0, 8))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
         for game in game_set:
             agent_labels = []
             total_plots = []
@@ -308,7 +250,7 @@ class Plotter:
             for agent, stats in game.iteritems():
                 color = colors[counter]
                 qualities = stats['qualities']
-                agent_labels.append(agent + " - average quality: " + str(sum(qualities) / len(qualities)))
+                agent_labels.append(agent)
                 plot, = plt.plot(qualities, linewidth=2, color=color)
                 total_plots.append(plot)
 
@@ -316,9 +258,9 @@ class Plotter:
 
             plt.legend(total_plots, agent_labels, loc=1)
 
-            plt.xlabel('Simulation Days')
-            plt.ylabel('Quality Rating')
-            plt.title("Quality Rating of Agents - Game 10")
+            plt.xlabel('Days')
+            plt.ylabel('Quality')
+            plt.title("Quality Game 10")
             x1, x2, y1, y2 = plt.axis()
 
             plt.axis((x1, x2, 0, 2))
@@ -326,7 +268,7 @@ class Plotter:
             return
 
     def plot_balance_lines(self, game_set):
-        colors = plt.get_cmap('jet')(np.linspace(0.3, 1.0, 8))
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
         for game in game_set:
             agent_labels = []
             total_plots = []
@@ -343,9 +285,9 @@ class Plotter:
 
             plt.legend(total_plots, agent_labels, loc=3)
 
-            plt.xlabel('Simulation Days')
-            plt.ylabel('Bank Balance')
-            plt.title("Bank Balance of Agents - Game 10")
+            plt.xlabel('Days')
+            plt.ylabel('Balance')
+            plt.title("Bank Game 10")
             plt.show()
 
     def plot_ucs_levels(self, game_set):
@@ -353,24 +295,24 @@ class Plotter:
             agent_labels = []
             total_plots = []
 
-            colors = plt.get_cmap('jet')(np.linspace(0, 1.0, 8))
-            counter = 0
-            for agent, stats in game.iteritems():
-                color = colors[counter]
-                ucs_levels = stats['ucs_levels']
+        colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
+        counter = 0
+        for agent, stats in game.iteritems():
+            color = colors[counter]
+            ucs_levels = stats['ucs_levels']
 
-                agent_labels.append(agent)
-                plot, = plt.plot(ucs_levels, linewidth=2, color=color)
-                total_plots.append(plot)
+            agent_labels.append(agent)
+            plot, = plt.plot(ucs_levels, linewidth=2, color=color)
+            total_plots.append(plot)
 
-                counter += 1
+            counter += 1
 
-            plt.legend(total_plots, agent_labels, loc=2)
+        plt.legend(total_plots, agent_labels, loc=2)
 
-            plt.xlabel('Games')
-            plt.ylabel('Number of Iterations')
-            plt.title('foobar')
-            plt.show()
+        plt.xlabel('Games')
+        plt.ylabel('Number of Iterations')
+        plt.title('foobar')
+        plt.show()
 
 
 if __name__ == '__main__':
@@ -378,21 +320,16 @@ if __name__ == '__main__':
     results = parser.parse_logs()
     plotter = Plotter()
     for game_set, games in results.iteritems():
-        # pass
-        # plotter.plot_quality_lines(games)
-        # plotter.plot_balance_lines(games)
-        # plotter.bar_plot_single_campaigns()
-        # plotter.bar_plot_single_days_stayed()
-
-        # plotter.bar_plot_ucs_levels(games)
-        # plotter.bar_plot_qualities(games)
-        # plotter.bar_plot_avg_campaigns(games)
-        # plotter.bar_plot_days_stayed(games)
-        # plotter.bar_plot_days_stayed_vs_total(games)
+        plotter.plot_quality_lines(games)
+        plotter.plot_balance_lines(games)
+        plotter.bar_plot_days_stayed(games)
+        plotter.bar_plot_days_stayed_vs_total(games)
+        plotter.bar_plot_ucs_levels(games)
+        plotter.bar_plot_qualities(games)
 
         if game_set == 3:
             game = games[1]
             plotter.plot_quality_lines([game])
             plotter.plot_balance_lines([game])
-            # plotter.bar_plot_single_campaigns(game)
-            # plotter.bar_plot_single_days_stayed(game)
+            plotter.bar_plot_total_won_per_set([game])
+            plotter.bar_plot_days_stayed([game])
