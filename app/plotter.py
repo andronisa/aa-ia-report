@@ -16,7 +16,7 @@ class Plotter:
     def __init__(self):
         pass
 
-    def bar_plot_qualities(self, game_set, title='Quality'):
+    def bar_plot_qualities(self, game_set, title='Agents Quality'):
         total_agent_qualities = {}
         agent_labels = []
         agent_qualities = []
@@ -52,10 +52,12 @@ class Plotter:
 
         ax.set_ylabel('Quality rating')
         ax.set_title(title)
-        ax.set_xticks(ind + width)
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        ax.legend(rect_tuple, labels)
 
         def autolabel(rects):
             for rect in rects:
@@ -67,8 +69,6 @@ class Plotter:
                         )
 
         autolabel(rects1)
-
-        ax.legend(rect_tuple, labels)
 
         plt.show()
 
@@ -108,10 +108,12 @@ class Plotter:
 
         ax.set_ylabel('Days')
         ax.set_title(title)
-        ax.set_xticks(ind + width)
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        ax.legend(rect_tuple, labels)
 
         def autolabel(rects):
             for rect in rects:
@@ -123,8 +125,6 @@ class Plotter:
                         )
 
         autolabel(rects1)
-
-        ax.legend(rect_tuple, labels)
 
         plt.show()
 
@@ -163,11 +163,13 @@ class Plotter:
         axes.set_ylim([0, 65])  # y-axis bounds
 
         ax.set_ylabel('Days')
-        ax.set_title('Average days in the game')
-        ax.set_xticks(ind + width)
+        ax.set_title('Average days until dropped off')
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        ax.legend(rect_tuple, labels)
 
         def autolabel(rects):
             for rect in rects:
@@ -180,11 +182,9 @@ class Plotter:
 
         autolabel(rects1)
 
-        ax.legend(rect_tuple, labels)
-
         plt.show()
 
-    def bar_plot_total_won_per_set(self, game_set, title='Campaigns Won'):
+    def bar_plot_total_won_per_set(self, game_set, title='Total Campaigns won per set of 4 games'):
         total_agent_campaigns = {}
         agent_labels = []
         agent_campaigns = []
@@ -220,10 +220,12 @@ class Plotter:
 
         ax.set_ylabel('Campaigns Won')
         ax.set_title(title)
-        ax.set_xticks(ind + width)
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        ax.legend(rect_tuple, labels)
 
         def autolabel(rects):
             for rect in rects:
@@ -235,8 +237,6 @@ class Plotter:
                         )
 
         autolabel(rects1)
-
-        ax.legend(rect_tuple, labels)
 
         plt.show()
 
@@ -276,10 +276,12 @@ class Plotter:
 
         ax.set_ylabel('Days')
         ax.set_title('Average days until dropped off vs average of all the others')
-        ax.set_xticks(ind + width)
+        ax.set_xticks(ind + width / 2)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        ax.legend(rect_tuple, labels)
 
         def autolabel(rects):
             for rect in rects:
@@ -292,11 +294,9 @@ class Plotter:
 
         autolabel(rects1)
 
-        ax.legend(rect_tuple, labels)
-
         plt.show()
 
-    def plot_quality_lines(self, game_set):
+    def plot_quality_lines(self, game_set, title="Quality rating per game"):
         colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
         for game in game_set:
             agent_labels = []
@@ -306,24 +306,24 @@ class Plotter:
             for agent, stats in game.iteritems():
                 color = colors[counter]
                 qualities = stats['qualities']
-                agent_labels.append(agent)
-                plot, = plt.plot(qualities, linewidth=1, color=color)
+                agent_labels.append(agent + " - average quality: " + str(sum(qualities) / len(qualities)))
+                plot, = plt.plot(qualities, linewidth=2, color=color)
                 total_plots.append(plot)
 
                 counter += 1
 
             plt.legend(total_plots, agent_labels, loc=1)
 
-            plt.xlabel('Days')
-            plt.ylabel('Quality')
-            plt.title("Quality Game 10")
+            plt.xlabel('Simulation Days')
+            plt.ylabel('Quality Rating')
+            plt.title(title)
             x1, x2, y1, y2 = plt.axis()
 
             plt.axis((x1, x2, 0, 2))
             plt.show()
             return
 
-    def plot_balance_lines(self, game_set):
+    def plot_balance_lines(self, game_set, title='Bank Balance per day'):
         colors = plt.get_cmap('jet')(np.linspace(0.1, 1.2, 8))
         for game in game_set:
             agent_labels = []
@@ -334,16 +334,16 @@ class Plotter:
                 color = colors[counter]
                 balances = stats['balances']
                 agent_labels.append(agent)
-                plot, = plt.plot(balances, linewidth=1, color=color)
+                plot, = plt.plot(balances, linewidth=2, color=color)
                 total_plots.append(plot)
 
                 counter += 1
 
             plt.legend(total_plots, agent_labels, loc=3)
 
-            plt.xlabel('Days')
-            plt.ylabel('Balance')
-            plt.title("Bank Game 10")
+            plt.xlabel('Simulation Days')
+            plt.ylabel('Bank Balance')
+            plt.title(title)
             plt.show()
 
     def plot_ucs_levels(self, game_set):
@@ -358,7 +358,7 @@ class Plotter:
             ucs_levels = stats['ucs_levels']
 
             agent_labels.append(agent)
-            plot, = plt.plot(ucs_levels, linewidth=1, color=color)
+            plot, = plt.plot(ucs_levels, linewidth=2, color=color)
             total_plots.append(plot)
 
             counter += 1
@@ -383,9 +383,11 @@ if __name__ == '__main__':
         plotter.bar_plot_ucs_levels(games)
         plotter.bar_plot_qualities(games)
 
-        if game_set == 3:
-            game = games[1]
-            plotter.plot_quality_lines([game])
-            plotter.plot_balance_lines([game])
-            plotter.bar_plot_total_won_per_set([game])
-            plotter.bar_plot_days_stayed([game])
+        # if game_set == 3:
+        #     game = games[1]
+        #     title = "Quality Rating of Agents - Game 10"
+        #     plotter.plot_quality_lines([game], title)
+        #     title = "Bank Balance of Agents - Game 10"
+        #     plotter.plot_balance_lines([game], title)
+        #     plotter.bar_plot_total_won_per_set([game])
+        #     plotter.bar_plot_days_stayed([game])
