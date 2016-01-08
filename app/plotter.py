@@ -52,10 +52,21 @@ class Plotter:
 
         ax.set_ylabel('Quality rating')
         ax.set_title(title)
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        def autolabel(rects):
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                        '%g' % height,
+                        ha='center',  # vertical alignment
+                        va='bottom'  # horizontal alignment
+                        )
+
+        autolabel(rects1)
 
         ax.legend(rect_tuple, labels)
 
@@ -97,10 +108,21 @@ class Plotter:
 
         ax.set_ylabel('Days')
         ax.set_title(title)
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        def autolabel(rects):
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                        '%g' % height,
+                        ha='center',  # vertical alignment
+                        va='bottom'  # horizontal alignment
+                        )
+
+        autolabel(rects1)
 
         ax.legend(rect_tuple, labels)
 
@@ -142,10 +164,21 @@ class Plotter:
 
         ax.set_ylabel('Days')
         ax.set_title('Average days in the game')
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        def autolabel(rects):
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                        '%g' % height,
+                        ha='center',  # vertical alignment
+                        va='bottom'  # horizontal alignment
+                        )
+
+        autolabel(rects1)
 
         ax.legend(rect_tuple, labels)
 
@@ -187,10 +220,21 @@ class Plotter:
 
         ax.set_ylabel('Campaigns Won')
         ax.set_title(title)
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
+
+        def autolabel(rects):
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                        '%g' % height,
+                        ha='center',  # vertical alignment
+                        va='bottom'  # horizontal alignment
+                        )
+
+        autolabel(rects1)
 
         ax.legend(rect_tuple, labels)
 
@@ -232,12 +276,24 @@ class Plotter:
 
         ax.set_ylabel('Days')
         ax.set_title('Average days until dropped off vs average of all the others')
-        ax.set_xticks(ind + width / 2)
+        ax.set_xticks(ind + width)
         ax.set_xticklabels(labels)
 
         rect_tuple = tuple(rects1)
 
+        def autolabel(rects):
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width() / 2., 1.05 * height,
+                        '%g' % height,
+                        ha='center',  # vertical alignment
+                        va='bottom'  # horizontal alignment
+                        )
+
+        autolabel(rects1)
+
         ax.legend(rect_tuple, labels)
+
         plt.show()
 
     def plot_quality_lines(self, game_set):
@@ -251,7 +307,7 @@ class Plotter:
                 color = colors[counter]
                 qualities = stats['qualities']
                 agent_labels.append(agent)
-                plot, = plt.plot(qualities, linewidth=2, color=color)
+                plot, = plt.plot(qualities, linewidth=1, color=color)
                 total_plots.append(plot)
 
                 counter += 1
@@ -278,7 +334,7 @@ class Plotter:
                 color = colors[counter]
                 balances = stats['balances']
                 agent_labels.append(agent)
-                plot, = plt.plot(balances, linewidth=2, color=color)
+                plot, = plt.plot(balances, linewidth=1, color=color)
                 total_plots.append(plot)
 
                 counter += 1
@@ -302,7 +358,7 @@ class Plotter:
             ucs_levels = stats['ucs_levels']
 
             agent_labels.append(agent)
-            plot, = plt.plot(ucs_levels, linewidth=2, color=color)
+            plot, = plt.plot(ucs_levels, linewidth=1, color=color)
             total_plots.append(plot)
 
             counter += 1
